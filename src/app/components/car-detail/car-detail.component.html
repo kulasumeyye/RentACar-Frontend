@@ -1,0 +1,51 @@
+<div>
+  <br />
+  <div class="card" *ngIf="carImageDetails">
+    <div
+      id="carouselExampleControls"
+      class="carousel slide"
+      data-ride="carousel"
+    >
+      <div
+        class="carousel-inner"
+      >
+        <div class="carousel-item" 
+        *ngFor="let image of carImageDetails.carImages; index as indexId"
+        [ngClass]="{'active':indexId==0}">
+          <img
+            [src]="getImage(image)"
+            class="d-block w-100"
+            width="500"
+            height="400"
+            [alt]="getImage(image)"
+            *ngIf="image.imagePath != null"
+          />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div class="card-body" >
+      <h5 class="card-title">{{ carImageDetails.car.description }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ carImageDetails.car.dailyPrice }} ₺</li>
+      <li class="list-group-item">{{ carImageDetails.car.modelYear }}</li>
+      <li class="list-group-item">{{ carImageDetails.car.findexPoint }}</li>
+    </ul>
+    <br />
+    <button
+      class="btn btn-success form-control"
+      routerLink="/baskets/{{ carImageDetails.car.id }}"
+    >
+      Kirala
+    </button>
+  </div>
+</div>

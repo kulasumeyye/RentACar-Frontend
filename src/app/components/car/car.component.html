@@ -1,0 +1,66 @@
+<br />
+<div>
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="filterText"
+      placeholder="Aranacak arabayı giriniz"
+      [(ngModel)]="filterText"
+    />
+  </div>
+
+  <div class="alert alert-success" role="alert" *ngIf="filterText">
+    {{ filterText }}
+  </div>
+
+  <div class="text-center" *ngIf="dataStatus == false">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="dataStatus == true">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Model Yılı</th>
+          <th>Fiyat</th>
+          <th>Açıklama</th>
+          <th>Renk</th>
+          <th>Detay</th>
+          <th *ngIf="adminControlStatus === true">Güncelle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let car of cars | carFilterPipe: filterText"
+          routerLink="/cars/{{ car.carId }}"
+          appTable
+          defaultColor
+        >
+          <th>{{ car.brandName }}</th>
+          <th>{{ car.modelYear }}</th>
+          <th>{{ car.dailyPrice }}</th>
+          <th>{{ car.carName }}</th>
+          <th>{{ car.colorName }}</th>
+          <th>
+            <button class="btn btn-primary" routerLink="/cars/{{ car.carId }}">
+              Detay
+            </button>
+          </th>
+          <th *ngIf="adminControlStatus === true">
+            <button
+              class="btn btn-warning"
+              routerLink="/cars/add/{{ car.carId }}"
+            >
+              Güncelle
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div></div>
